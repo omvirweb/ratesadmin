@@ -1,0 +1,1 @@
+ C:\\Users\\vivek\\rates\ admin\\.dart_tool\\flutter_build\\28a7a85bd505f56a4b477a528a47b6fc\\native_assets.yaml: 
