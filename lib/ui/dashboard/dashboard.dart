@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jewelbook_calculator/ui/login_screen/login_screen.dart';
+import 'package:jewelbook_calculator/ui/setting_screen/setting_Screen.dart';
 import 'package:jewelbook_calculator/ui/users_screen/admin_user_list.dart';
 
 class Dashboard extends StatefulWidget {
@@ -181,6 +182,18 @@ class _DashboardState extends State<Dashboard> {
             title: const Text('Dashboard'),
             onTap: () {
               Navigator.pop(context);
+              // Get.to(const Dashboard());
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => settingScreen(),
+                  ));
               // Get.to(const Dashboard());
             },
           ),
