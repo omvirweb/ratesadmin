@@ -14,6 +14,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: _appBar(context),
       body: _body(context),
       drawer: _buildDrawer(context),
@@ -23,7 +24,7 @@ class _DashboardState extends State<Dashboard> {
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
       elevation: 10.0,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF000000),
       titleSpacing: 0,
       leading: Builder(
         builder: (context) {
@@ -31,10 +32,13 @@ class _DashboardState extends State<Dashboard> {
             onTap: () {
               Scaffold.of(context).openDrawer(); // Open the drawer
             },
-            child: const Icon(
-              Icons.menu_rounded,
-              size: 25,
-              color: Colors.black,
+            child: const Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Icon(
+                Icons.menu_rounded,
+                size: 28,
+                color: Colors.amber, // Golden icon to match UI theme
+              ),
             ),
           );
         },
@@ -42,11 +46,14 @@ class _DashboardState extends State<Dashboard> {
       title: const Text(
         'JewelBook Rates Admin',
         style: TextStyle(
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.bold,
           fontSize: 18,
-          color: Colors.black,
+          color: Colors.amber, // Golden text color
+          letterSpacing: 1.2, // Slight spacing for a premium look
         ),
       ),
+      centerTitle: true,
+      shadowColor: Colors.amber.withOpacity(0.4), // Soft golden shadow effect
     );
   }
 
@@ -74,8 +81,8 @@ class _DashboardState extends State<Dashboard> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.deepOrange.shade300,
-                    Colors.deepOrange.shade500,
+                    Colors.amber.shade300,
+                    Colors.amber.shade500,
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -102,14 +109,7 @@ class _DashboardState extends State<Dashboard> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 26.0,
-                      color: Colors.white,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          offset: Offset(2, 2),
-                        ),
-                      ],
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -134,7 +134,7 @@ class _DashboardState extends State<Dashboard> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30.0,
-                        color: Colors.deepOrange,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -147,111 +147,123 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Drawer _buildDrawer(BuildContext context) {
+  Widget _buildDrawer(BuildContext context) {
     return Drawer(
-      child: Column(
-        // padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Center(
-                    child: Image.asset('assets/images/app_icon.png'),
-                  ),
+      child: Container(
+        color: Colors.black, // Black background for a premium look
+        child: Column(
+          children: [
+            // Drawer Header with Image and Version
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
                 ),
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Version : 1.0',
+              ),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50), // Circular image
+                    child: Image.asset(
+                      'assets/images/app_icon.png',
+                      width: 130,
+                      height: 100,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Version: 1.0.0', // Update version dynamically if needed
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10), // Optional: Change text color
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-          ),
 
-          ListTile(
-            leading: const Icon(Icons.home_filled),
-            title: const Text('Dashboard'),
-            onTap: () {
-              Navigator.pop(context);
-              // Get.to(const Dashboard());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => settingScreen(),
-                  ));
-              // Get.to(const Dashboard());
-            },
-          ),
-          // ListTile(
-          //   leading: const Icon(Icons.group_add_rounded),
-          //   title: const Text('Saving Scheme'),
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => savingSchemeScreen(),
-          //         ));
-          //     // Get.to(IssueItemScreen());
-          //   },
-          // ),
-          // ListTile(
-          //   leading: const Icon(Icons.group_add_rounded),
-          //   title: const Text('Join Saving Scheme'),
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => savingSchemeJoinScreen(),
-          //         ));
-          //     // Get.to(IssueItemScreen());
-          //   },
-          // ),
+            // Drawer Items with Scrollable List
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildDrawerItem(
+                        icon: Icons.home_filled,
+                        title: 'Dashboard',
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                    _buildDrawerItem(
+                        icon: Icons.settings,
+                        title: 'Setting',
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const settingScreen(),
+                              ));
+                        }),
 
-          // ListTile(
-          //   leading: const Icon(Icons.group_add_rounded),
-          //   title: const Text('My Home Page'),
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => MyHomePage(),
-          //         ));
-          //     // Get.to(IssueItemScreen());
-          //   },
-          // ),
+                    // Gradient Divider for Styling
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      height: 2,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.amber, Colors.transparent],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                    ),
 
-          Expanded(child: Container()),
-          const Divider(), // Divider to separate the logout option
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () async {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
+                    // Logout Button
+                    _buildDrawerItem(
+                      icon: Icons.logout,
+                      title: 'Logout',
+                      onTap: () {},
+                      isLogout: true,
+                    ),
+                  ],
                 ),
-                (route) => false,
-              );
-            },
-          ),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+// Custom Drawer Item with Hover Effect
+  Widget _buildDrawerItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    bool isLogout = false,
+  }) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: isLogout ? Colors.red : Colors.amber, // Red for logout
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: isLogout ? Colors.white : Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+      ),
+      onTap: onTap,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      hoverColor: Colors.amber.withOpacity(0.2), // Subtle hover effect
     );
   }
 }

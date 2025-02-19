@@ -19,113 +19,102 @@ class _AdminUserEditState extends State<AdminUserEdit> {
       appBar: AppBar(
         title: const Text(
           "Admin User Edit",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
+        backgroundColor: Colors.black,
+        elevation: 2,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus(); // Close the keyboard
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                // Section Title
-                const Text(
-                  "Edit User Information",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                "Edit User Information",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
                 ),
-                const SizedBox(height: 20),
-                // First Name Field
-                _buildTextField("First Name", Icons.person),
-                const SizedBox(height: 10),
-                // Last Name Field
-                _buildTextField("Last Name", Icons.person),
-                const SizedBox(height: 10),
-                // Email Field
-                _buildTextField("Email", Icons.email),
-                const SizedBox(height: 10),
-                // Mobile Number Field
-                _buildTextField("Mobile No.", Icons.phone,
-                    keyboardType: TextInputType.phone, maxLength: 10),
-                const SizedBox(height: 10),
-                // Password Field
-                _buildPasswordField(
-                    "Password",
-                    _isPasswordVisible,
-                    () => setState(
-                        () => _isPasswordVisible = !_isPasswordVisible)),
-                const SizedBox(height: 10),
-                // Confirm Password Field
-                _buildPasswordField(
-                    "Confirm Password",
-                    _isConfirmPasswordVisible,
-                    () => setState(() => _isConfirmPasswordVisible =
-                        !_isConfirmPasswordVisible)),
-                const SizedBox(height: 20),
-                // Terms and Conditions
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _isTermsAccepted,
-                      activeColor: Colors.deepOrange.shade900,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4)),
-                      onChanged: (value) {
-                        setState(() {
-                          _isTermsAccepted = value!;
-                        });
-                      },
-                    ),
-                    const Expanded(
-                      child: Text(
-                        "I accept the Terms and Conditions.",
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                // Submit Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AdminUserList(),
-                        ),
-                        (route) => false,
-                      );
+              ),
+              const SizedBox(height: 20),
+              _buildTextField("First Name", Icons.person),
+              const SizedBox(height: 10),
+              _buildTextField("Last Name", Icons.person),
+              const SizedBox(height: 10),
+              _buildTextField("Email", Icons.email),
+              const SizedBox(height: 10),
+              _buildTextField("Mobile No.", Icons.phone,
+                  keyboardType: TextInputType.phone, maxLength: 10),
+              const SizedBox(height: 10),
+              _buildPasswordField(
+                  "Password",
+                  _isPasswordVisible,
+                  () =>
+                      setState(() => _isPasswordVisible = !_isPasswordVisible)),
+              const SizedBox(height: 10),
+              _buildPasswordField(
+                  "Confirm Password",
+                  _isConfirmPasswordVisible,
+                  () => setState(() =>
+                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible)),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _isTermsAccepted,
+                    activeColor: Colors.amber,
+                    side: BorderSide(color: Colors.white),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
+                    onChanged: (value) {
+                      setState(() {
+                        _isTermsAccepted = value!;
+                      });
                     },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      backgroundColor: Colors.deepOrange.shade900,
-                      shadowColor: Colors.deepOrange.withOpacity(0.4),
-                    ),
-                    child: const Text(
-                      "Submit",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  const Expanded(
+                    child: Text(
+                      "I accept the Terms and Conditions.",
+                      style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AdminUserList(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    backgroundColor: Colors.amber,
+                    shadowColor: Colors.amber.withOpacity(0.4),
+                  ),
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -137,10 +126,17 @@ class _AdminUserEditState extends State<AdminUserEdit> {
     return TextFormField(
       keyboardType: keyboardType,
       maxLength: maxLength,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        labelStyle: const TextStyle(color: Colors.amber),
+        prefixIcon: Icon(icon, color: Colors.amber),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.amber),
+            borderRadius: BorderRadius.circular(10)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.amber, width: 2),
+            borderRadius: BorderRadius.circular(10)),
         counterText: "",
       ),
     );
@@ -150,16 +146,24 @@ class _AdminUserEditState extends State<AdminUserEdit> {
       String label, bool isVisible, VoidCallback toggleVisibility) {
     return TextFormField(
       obscureText: !isVisible,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: const Icon(Icons.lock),
+        labelStyle: const TextStyle(color: Colors.amber),
+        prefixIcon: const Icon(Icons.lock, color: Colors.amber),
         suffixIcon: IconButton(
           icon: Icon(
             isVisible ? Icons.visibility : Icons.visibility_off,
+            color: Colors.amber,
           ),
           onPressed: toggleVisibility,
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.amber),
+            borderRadius: BorderRadius.circular(10)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.amber, width: 2),
+            borderRadius: BorderRadius.circular(10)),
       ),
     );
   }

@@ -9,7 +9,6 @@ class AdminUserList extends StatefulWidget {
 }
 
 class _AdminUserListState extends State<AdminUserList> {
-  // Example list of 20 users
   final List<Map<String, String>> users = List.generate(
     20,
     (index) => {
@@ -24,20 +23,19 @@ class _AdminUserListState extends State<AdminUserList> {
       appBar: AppBar(
         title: const Text(
           "Admin User List",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white30,
-        elevation: 0,
+        backgroundColor: Colors.black,
+        elevation: 5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Total user count
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
@@ -45,11 +43,10 @@ class _AdminUserListState extends State<AdminUserList> {
               style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ),
-          // User list
           Expanded(
             child: ListView.builder(
               itemCount: users.length,
@@ -59,21 +56,23 @@ class _AdminUserListState extends State<AdminUserList> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0),
                   child: Card(
-                    elevation: 5,
+                    color: Colors.black,
+                    elevation: 8,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
+                      side: const BorderSide(color: Colors.amber, width: 1.5),
                     ),
                     child: ListTile(
                       contentPadding: const EdgeInsets.all(10.0),
                       leading: CircleAvatar(
                         radius: 30,
-                        backgroundColor: Colors.deepOrange.shade100,
+                        backgroundColor: Colors.amber,
                         child: Text(
                           user["name"]![0],
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.deepOrange,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -82,7 +81,7 @@ class _AdminUserListState extends State<AdminUserList> {
                         style: const TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                       subtitle: Text(
@@ -96,22 +95,22 @@ class _AdminUserListState extends State<AdminUserList> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blue),
+                            icon: const Icon(Icons.edit, color: Colors.amber),
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AdminUserEdit(),
+                                    builder: (context) => const AdminUserEdit(),
                                   ));
                             },
                           ),
                           IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              // Handle delete action with a popup
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
+                                  backgroundColor: Colors.black,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
@@ -119,11 +118,13 @@ class _AdminUserListState extends State<AdminUserList> {
                                     "Confirm Delete",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      color: Colors.amber,
                                     ),
                                   ),
                                   content: Text(
                                     "Are you sure you want to delete ${user["name"]}?",
-                                    style: const TextStyle(fontSize: 16.0),
+                                    style: const TextStyle(
+                                        fontSize: 16.0, color: Colors.white),
                                   ),
                                   actions: [
                                     TextButton(
@@ -147,8 +148,11 @@ class _AdminUserListState extends State<AdminUserList> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
+                                            backgroundColor: Colors.black,
                                             content: Text(
                                               '${user["name"]} has been deleted.',
+                                              style: const TextStyle(
+                                                  color: Colors.amber),
                                             ),
                                           ),
                                         );

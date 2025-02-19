@@ -26,7 +26,20 @@ class _settingScreenState extends State<settingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text(
+          'Settings',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        backgroundColor: Colors.black,
+        elevation: 1,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -59,51 +72,63 @@ class _settingScreenState extends State<settingScreen> {
     );
   }
 
-  /// 📌 Reusable Checkbox Tile
+  /// 📌 Reusable Checkbox Tile with Golden Theme
   Widget _buildCheckboxTile(
       String title, bool value, Function(bool) onChanged) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      color: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.amber, width: 1.5), // Golden border
+      ),
       elevation: 3,
       child: CheckboxListTile(
-        title: Text(title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+        title: Text(
+          title,
+          style: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         value: value,
+        side: BorderSide(color: Colors.white),
         onChanged: (bool? newValue) {
           onChanged(newValue ?? false);
         },
-        activeColor: Colors.deepOrange.shade900,
+        activeColor: Colors.amber,
+        checkColor: Colors.white,
         controlAffinity: ListTileControlAffinity.leading,
       ),
     );
   }
 
-  /// 📌 Reusable TextField Widget with Styling
+  /// 📌 Reusable TextField Widget with Golden Theme
   Widget _buildTextField(String title, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.amber)),
         const SizedBox(height: 8), // Space
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
+          style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.black,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderSide: const BorderSide(color: Colors.amber),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderSide: const BorderSide(color: Colors.amber),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  BorderSide(color: Colors.deepOrange.shade900, width: 2),
+              borderSide: BorderSide(color: Colors.amber.shade700, width: 2),
             ),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
